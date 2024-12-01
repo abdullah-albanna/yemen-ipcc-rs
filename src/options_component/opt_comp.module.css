@@ -1,0 +1,32 @@
+:root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  background-color: rgb(40, 43, 45);
+  padding: 20px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  gap: 10px;
+  color: #e8e6e3;
+}
+
+:root h3 {
+  margin-top: 0;
+}
+
+.options-label {
+  text-align: center;
+}
+
+/* most of the colors are from a firefox extension for darkmode, I like them :) */
+select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid rgb(62, 68, 70);
+  border-color: rgb(118, 110, 97);
+  border-radius: 5px;
+  background-color: rgb(24, 26, 27);
+  color: rgb(186, 180, 171);
+}
