@@ -6,3 +6,7 @@
 
 # for trunk
 /dist/
+
+/package-lock.json 
+/node_modules 
+/package.json

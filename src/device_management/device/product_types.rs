@@ -1,4 +1,3 @@
-use regex::Regex;
 use std::{fmt::Display, str::FromStr};
 
 #[allow(non_camel_case_types)]
