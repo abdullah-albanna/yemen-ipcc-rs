@@ -1,0 +1,13 @@
+#bundles-dropdown-label,
+#containers-dropdown-label {
+  color: black;
+  background-color: #8ab0ab;
+  border-radius: 5px;
+  transition: all 0.3s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  text-align: center;
+  width: 15vh;
+}
+
+.bundles-container {
+  padding: 3vh;
+}

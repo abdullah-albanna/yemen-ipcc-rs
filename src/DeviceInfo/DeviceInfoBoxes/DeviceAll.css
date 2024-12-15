@@ -1,0 +1,16 @@
+.info-container>fieldset {
+  border: 2px solid #8ab0ab;
+  border-radius: 20px;
+}
+
+.info-container>fieldset>legend {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: lightgoldenrodyellow;
+}
+
+.info-container>fieldset>p {
+  color: #bce0dc;
+  margin: auto;
+  padding: 0;
+}
