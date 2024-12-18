@@ -12,13 +12,16 @@ import DevicePreview from "./DevicePreview/DevicePreview";
 import DeviceInfo from "./DeviceInfo/DeviceInfo";
 
 import "./App.css";
+import { DeviceProvider } from "./DeviceInfo/DeviceProvider";
 
 export default function App() {
   return (
     <div className="container">
-      <DevicePreview />
-      <DeviceInfo />
-      <DeviceOptions />
+      <DeviceProvider>
+        <DevicePreview />
+        <DeviceInfo />
+        <DeviceOptions />
+      </DeviceProvider>
     </div>
   );
 }

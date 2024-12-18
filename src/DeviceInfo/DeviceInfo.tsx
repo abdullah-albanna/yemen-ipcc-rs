@@ -1,14 +1,17 @@
 import "./DeviceInfo.css";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 
 import Battery from "./DeviceInfoBoxes/Battery";
 import OS from "./DeviceInfoBoxes/OS";
 import Info from "./DeviceInfoBoxes/Info";
 import Storage from "./DeviceInfoBoxes/Storage";
+import { listen } from "@tauri-apps/api/event";
+import { invoke } from "@tauri-apps/api/core";
+import { useDeviceContext } from "./DeviceProvider";
 
-export default function DeviceInfo() {
+const DeviceInfo: React.FC = () => {
   return (
     <div className="device-info-container">
       <div className="device-title">
@@ -29,4 +32,6 @@ export default function DeviceInfo() {
       </div>
     </div>
   );
-}
+};
+
+export default DeviceInfo;

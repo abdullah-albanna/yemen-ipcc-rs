@@ -1,13 +1,17 @@
+import { useDeviceContext } from "../DeviceProvider";
 import "./DeviceAll.css";
 import { Box } from "@mui/material";
 
 export default function Info() {
+  let { hardware } = useDeviceContext();
+
   return (
     <div className="info-container">
       <Box component="fieldset">
         <legend>Info</legend>
-        <p>Model: iPhone 13 Pro Max</p>
-        <p>Serial Number: 12JnAs</p>
+        <p>Model: {hardware?.model}</p>
+        <p>Model Number: {hardware?.model_number}</p>
+        <p>Region: {hardware?.region}</p>
       </Box>
     </div>
   );
