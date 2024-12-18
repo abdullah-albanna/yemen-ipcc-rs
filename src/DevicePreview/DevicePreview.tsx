@@ -1,5 +1,6 @@
 import "./DevicePreview.css";
 
+import React from "react";
 export default function DevicePreview() {
   return (
     <div className="device-preview-container">

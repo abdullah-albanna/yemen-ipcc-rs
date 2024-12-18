@@ -1,7 +1,3 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
-
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
@@ -10,6 +6,7 @@ import "@fontsource/roboto/700.css";
 import DeviceOptions from "./DeviceOptions/DeviceOptions";
 import DevicePreview from "./DevicePreview/DevicePreview";
 import DeviceInfo from "./DeviceInfo/DeviceInfo";
+import React from "react";
 
 import "./App.css";
 import { DeviceProvider } from "./DeviceInfo/DeviceProvider";

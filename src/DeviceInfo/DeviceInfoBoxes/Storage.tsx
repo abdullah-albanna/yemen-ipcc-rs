@@ -1,5 +1,6 @@
 import { useDeviceContext } from "../DeviceProvider";
 import "./DeviceAll.css";
+import React from "react";
 
 import { Box } from "@mui/material";
 

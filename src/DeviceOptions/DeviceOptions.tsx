@@ -4,6 +4,7 @@ import Bundles from "./Options/Bundles";
 import Containers from "./Options/Containers";
 import theme from "./Options/Theme";
 
+import React from "react";
 export default function DeviceOptions() {
   return (
     <div className="device-options-container">

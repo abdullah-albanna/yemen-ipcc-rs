@@ -1,6 +1,6 @@
 mod device_management;
 
-use device_management::check_device;
+use device_management::device::check_device;
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]

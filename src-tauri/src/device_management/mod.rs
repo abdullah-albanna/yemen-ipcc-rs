@@ -1,4 +1,2 @@
-mod device;
-mod product_types;
-
-pub use device::check_device;
+pub mod device;
+pub mod handlers;

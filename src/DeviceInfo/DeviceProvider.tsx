@@ -16,7 +16,7 @@ interface OS {
 interface Storage {
   total_storage: number;
   used_storage: number;
-  available_storage: number; // Fixed typo: availabel_storage -> available_storage
+  available_storage: number;
 }
 
 interface Battery {
@@ -32,18 +32,41 @@ interface Hardware {
 }
 
 interface DeviceContextType {
-  hardware: Hardware | null;
-  battery: Battery | null;
-  os: OS | null;
-  storage: Storage | null;
+  hardware: Hardware;
+  battery: Battery;
+  os: OS;
+  storage: Storage;
   connected: boolean;
 }
 
+// Define default values for each interface
+const defaultHardware: Hardware = {
+  model: "",
+  model_number: "",
+  region: "",
+};
+
+const defaultBattery: Battery = {
+  battery_level: 0,
+  battery_health: 0,
+  cycle_counts: 0,
+};
+
+const defaultOS: OS = {
+  ios_ver: "",
+  build_num: "",
+};
+
+const defaultStorage: Storage = {
+  total_storage: 0,
+  used_storage: 0,
+  available_storage: 0,
+};
 const DeviceContext = createContext<DeviceContextType>({
-  hardware: null,
-  battery: null,
-  os: null,
-  storage: null,
+  hardware: defaultHardware,
+  battery: defaultBattery,
+  os: defaultOS,
+  storage: defaultStorage,
   connected: false,
 });
 
@@ -52,10 +75,10 @@ export const useDeviceContext = () => useContext(DeviceContext);
 export const DeviceProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [hardware, setHardware] = useState<Hardware | null>(null);
-  const [battery, setBattery] = useState<Battery | null>(null);
-  const [os, setOS] = useState<OS | null>(null);
-  const [storage, setStorage] = useState<Storage | null>(null);
+  const [hardware, setHardware] = useState<Hardware>(defaultHardware);
+  const [battery, setBattery] = useState<Battery>(defaultBattery);
+  const [os, setOS] = useState<OS>(defaultOS);
+  const [storage, setStorage] = useState<Storage>(defaultStorage);
   const [connected, setConnected] = useState(false);
 
   // Memoizing the event listeners with useCallback
@@ -89,9 +112,7 @@ export const DeviceProvider: React.FC<{ children: React.ReactNode }> = ({
     ];
 
     // Start the device monitoring process
-    invoke("check_device")
-      .then(() => console.log("Started device monitoring"))
-      .catch((err) => console.error("Error starting device monitoring:", err));
+    invoke("check_device");
 
     // Cleanup listeners on unmount using Promise.all for better readability
     return () => {
