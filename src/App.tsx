@@ -10,16 +10,19 @@ import React from "react";
 
 import "./App.css";
 import { DeviceProvider } from "./DeviceInfo/DeviceProvider";
+import DisconnectedScreen from "./DisconnectedScreen/DisconnectedScreen";
 
 export default function App() {
   return (
-    <div className="container">
-      <DeviceProvider>
-        <DevicePreview />
-        <DeviceInfo />
-        <DeviceOptions />
-      </DeviceProvider>
-    </div>
+    <DeviceProvider>
+      <DisconnectedScreen>
+        <div className="container">
+          <DevicePreview />
+          <DeviceInfo />
+          <DeviceOptions />
+        </div>
+      </DisconnectedScreen>
+    </DeviceProvider>
   );
 }
 

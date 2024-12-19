@@ -17,18 +17,22 @@ pub fn handle_device_storage(device: &DeviceClient<SingleDevice>) -> Storage {
     let device_info = device.get_device_info();
 
     let disk_dict = device_info.get_values(DeviceDomains::DiskUsage).unwrap();
-    let total_storage = disk_dict
-        .get("totaldiskcapacity")
+    let mut total_storage = disk_dict
+        .get("TotalDiskCapacity")
         .unwrap()
         .to_owned()
         .parse::<u64>()
         .unwrap();
-    let available_storage = disk_dict
-        .get("amountrestoreavailable")
+    total_storage /= 1e+9 as u64;
+
+    let mut available_storage = disk_dict
+        .get("AmountRestoreAvailable")
         .unwrap()
         .to_owned()
         .parse::<u64>()
         .unwrap();
+    available_storage /= 1e+9 as u64;
+
     let used_storage = total_storage - available_storage;
 
     Storage {

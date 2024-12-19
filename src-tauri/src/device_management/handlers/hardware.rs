@@ -52,7 +52,9 @@ pub fn handle_device_hardware(device: &DeviceClient<SingleDevice>) -> Hardware {
     let model_number = format!("{} ({})", model_number_code, model_meaning);
 
     Hardware {
-        model: device_info.get_product_type(),
+        model: device_info
+            .get_value(DeviceKeys::ProductType, DeviceDomains::All)
+            .unwrap_or("unknown".into()),
         model_number,
         region,
     }
