@@ -22,7 +22,9 @@ pub fn check_device(window: tauri::Window) {
     thread::spawn({
         move || loop {
             if let Ok(device) = rsmobiledevice::device::DeviceClient::new() {
-                let device = device.get_first_device();
+                let Some(device) = device.get_first_device() else {
+                    continue;
+                };
 
                 if let (Ok(mut status_c), Ok(mut device_disconnected_value)) =
                     (status_changed.try_lock(), device_disconnected.try_lock())
@@ -62,7 +64,7 @@ pub fn check_device(window: tauri::Window) {
                 }
             }
 
-            thread::sleep(Duration::from_secs(2)); // Check every 2 seconds
+            thread::sleep(Duration::from_secs(1));
         }
     });
 }

@@ -11,26 +11,20 @@ pub struct Storage {
     pub available_storage: u64,
 }
 
-// Function to handle a connected device
-
 pub fn handle_device_storage(device: &DeviceClient<SingleDevice>) -> Storage {
     let device_info = device.get_device_info();
 
     let disk_dict = device_info.get_values(DeviceDomains::DiskUsage).unwrap();
     let mut total_storage = disk_dict
         .get("TotalDiskCapacity")
-        .unwrap()
-        .to_owned()
-        .parse::<u64>()
-        .unwrap();
+        .map_or(0, |s| s.parse::<u64>().unwrap_or_default());
+
     total_storage /= 1e+9 as u64;
 
     let mut available_storage = disk_dict
         .get("AmountRestoreAvailable")
-        .unwrap()
-        .to_owned()
-        .parse::<u64>()
-        .unwrap();
+        .map_or(0, |s| s.parse::<u64>().unwrap_or_default());
+
     available_storage /= 1e+9 as u64;
 
     let used_storage = total_storage - available_storage;

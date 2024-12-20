@@ -3083,7 +3083,7 @@ dependencies = [
 [[package]]
 name = "rsmobiledevice"
 version = "0.1.0"
-source = "git+https://github.com/Abdullah-Albanna/rsmobiledevice?rev=9c835ad#9c835adee1ead030109e22ba37a30a09033d8f23"
+source = "git+https://github.com/Abdullah-Albanna/rsmobiledevice?rev=c7b6d87#c7b6d87c991163f2355bf5a19ed9ea54fc90e36b"
 dependencies = [
  "crossbeam-channel",
  "plist_plus",

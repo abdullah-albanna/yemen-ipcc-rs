@@ -16,9 +16,7 @@ pub fn handle_device_hardware(device: &DeviceClient<SingleDevice>) -> Hardware {
 
     let region_code = device_info
         .get_value(DeviceKeys::RegionInfo, DeviceDomains::All)
-        .unwrap_or("unknown".into())
-        .trim()
-        .to_owned();
+        .map_or("unknown".into(), |s| s.trim().to_owned());
 
     let region: String = match region_code.as_str() {
         "LL/A" => "United States".into(),

@@ -22,4 +22,4 @@ tauri = { version = "2", features = [] }
 tauri-plugin-shell = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
-rsmobiledevice = { git = "https://github.com/Abdullah-Albanna/rsmobiledevice", rev="9c835ad" }
+rsmobiledevice = { git = "https://github.com/Abdullah-Albanna/rsmobiledevice", rev="c7b6d87" }

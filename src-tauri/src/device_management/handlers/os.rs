@@ -18,9 +18,9 @@ pub fn handle_device_os(device: &DeviceClient<SingleDevice>) -> OS {
     OS {
         ios_ver: device_info
             .get_value(DeviceKeys::ProductVersion, DeviceDomains::All)
-            .unwrap(),
+            .unwrap_or("unknown".into()),
         build_num: device_info
             .get_value(DeviceKeys::BuildVersion, DeviceDomains::All)
-            .unwrap(),
+            .unwrap_or("unknown".into()),
     }
 }
