@@ -1,7 +1,9 @@
 use std::{fmt::Display, str::FromStr};
 
+use serde::{Deserialize, Serialize};
+
 #[allow(non_camel_case_types)]
-#[derive(Debug, PartialEq, Clone, Copy, Default)]
+#[derive(Debug, PartialEq, Clone, Copy, Default, Serialize, Deserialize)]
 pub enum ProductType {
     #[default]
     Unknown,
@@ -47,6 +49,12 @@ pub enum ProductType {
     iPhoneSE3rdGen,
     iPhoneSE2ndGen,
     iPhoneSE1stGen,
+}
+
+impl ProductType {
+    pub fn is_unknown(&self) -> bool {
+        matches!(self, ProductType::Unknown)
+    }
 }
 
 impl Display for ProductType {
@@ -115,46 +123,60 @@ impl FromStr for ProductType {
 
         match normalized.as_str() {
             // iPhone 6 series
-            "iphone6" | "ip6" | "6" => Ok(ProductType::iPhone6),
-            "iphone6plus" | "ip6plus" | "6plus" | "6+" => Ok(ProductType::iPhone6Plus),
-            "iphone6s" | "ip6s" | "6s" => Ok(ProductType::iPhone6S),
-            "iphone6splus" | "ip6splus" | "6splus" | "6s+" => Ok(ProductType::iPhone6SPlus),
+            "iphone7,2" | "iphone6" | "ip6" | "6" => Ok(ProductType::iPhone6),
+            "iphone7,1" | "iphone6plus" | "ip6plus" | "6plus" | "6+" => {
+                Ok(ProductType::iPhone6Plus)
+            }
+            "iphone8,1" | "iphone6s" | "ip6s" | "6s" => Ok(ProductType::iPhone6S),
+            "iphone8,2" | "iphone6splus" | "ip6splus" | "6splus" | "6s+" => {
+                Ok(ProductType::iPhone6SPlus)
+            }
 
             // iPhone 7 series
-            "iphone7" | "ip7" | "7" => Ok(ProductType::iPhone7),
-            "iphone7plus" | "ip7plus" | "7plus" | "7+" => Ok(ProductType::iPhone7Plus),
+            "iphone9,1" | "iphone7" | "ip7" | "7" => Ok(ProductType::iPhone7),
+            "iphone9,2" | "iphone7plus" | "ip7plus" | "7plus" | "7+" => {
+                Ok(ProductType::iPhone7Plus)
+            }
 
             // iPhone 8 series
-            "iphone8" | "ip8" | "8" => Ok(ProductType::iPhone8),
-            "iphone8plus" | "ip8plus" | "8plus" | "8+" => Ok(ProductType::iPhone8Plus),
+            "iphone10,1" | "iphone8" | "ip8" | "8" => Ok(ProductType::iPhone8),
+            "iphone10,2" | "iphone8plus" | "ip8plus" | "8plus" | "8+" => {
+                Ok(ProductType::iPhone8Plus)
+            }
 
             // iPhone X series
-            "iphonex" | "ipx" | "x" => Ok(ProductType::iPhoneX),
-            "iphonexr" | "ipxr" | "xr" => Ok(ProductType::iPhoneXR),
-            "iphonexs" | "ipxs" | "xs" => Ok(ProductType::iPhoneXS),
-            "iphonexsmax" | "ipxsmax" | "xsmax" => Ok(ProductType::iPhoneXSMax),
+            "iphone10,6" | "iphonex" | "ipx" | "x" => Ok(ProductType::iPhoneX),
+            "iphone11,8" | "iphonexr" | "ipxr" | "xr" => Ok(ProductType::iPhoneXR),
+            "iphone11,2" | "iphonexs" | "ipxs" | "xs" => Ok(ProductType::iPhoneXS),
+            "iphone11,4" | "iphonexsmax" | "ipxsmax" | "xsmax" => Ok(ProductType::iPhoneXSMax),
 
             // iPhone 11 series
-            "iphone11" | "ip11" | "11" => Ok(ProductType::iPhone11),
-            "iphone11pro" | "ip11pro" | "11pro" => Ok(ProductType::iPhone11Pro),
-            "iphone11promax" | "ip11promax" | "11promax" => Ok(ProductType::iPhone11ProMax),
+            "iphone12,1" | "iphone11" | "ip11" | "11" => Ok(ProductType::iPhone11),
+            "iphone12,3" | "iphone11pro" | "ip11pro" | "11pro" => Ok(ProductType::iPhone11Pro),
+            "iphone12,5" | "iphone11promax" | "ip11promax" | "11promax" => {
+                Ok(ProductType::iPhone11ProMax)
+            }
 
             // iPhone 12 series
-            "iphone12" | "ip12" | "12" => Ok(ProductType::iPhone12),
-            "iphone12mini" | "ip12mini" | "12mini" => Ok(ProductType::iPhone12Mini),
-            "iphone12pro" | "ip12pro" | "12pro" => Ok(ProductType::iPhone12Pro),
-            "iphone12promax" | "ip12promax" | "12promax" => Ok(ProductType::iPhone12ProMax),
+            "iphone13,2" | "iphone12" | "ip12" | "12" => Ok(ProductType::iPhone12),
+            "iphone13,1" | "iphone12mini" | "ip12mini" | "12mini" => Ok(ProductType::iPhone12Mini),
+            "iphone13,3" | "iphone12pro" | "ip12pro" | "12pro" => Ok(ProductType::iPhone12Pro),
+            "iphone13,4" | "iphone12promax" | "ip12promax" | "12promax" => {
+                Ok(ProductType::iPhone12ProMax)
+            }
 
             // iPhone 13 series
-            "iphone13" | "ip13" | "13" => Ok(ProductType::iPhone13),
-            "iphone13mini" | "ip13mini" | "13mini" => Ok(ProductType::iPhone13Mini),
-            "iphone13pro" | "ip13pro" | "13pro" => Ok(ProductType::iPhone13Pro),
-            "iphone13promax" | "ip13promax" | "13promax" => Ok(ProductType::iPhone13ProMax),
+            "iphone14,5" | "iphone13" | "ip13" | "13" => Ok(ProductType::iPhone13),
+            "iphone14,4" | "iphone13mini" | "ip13mini" | "13mini" => Ok(ProductType::iPhone13Mini),
+            "iphone14,2" | "iphone13pro" | "ip13pro" | "13pro" => Ok(ProductType::iPhone13Pro),
+            "iphone14,3" | "iphone13promax" | "ip13promax" | "13promax" => {
+                Ok(ProductType::iPhone13ProMax)
+            }
 
             // iPhone SE series
-            "iphonese1stgen" | "ipse1" | "se1" => Ok(ProductType::iPhoneSE1stGen),
-            "iphonese2ndgen" | "ipse2" | "se2" => Ok(ProductType::iPhoneSE2ndGen),
-            "iphonese3rdgen" | "ipse3" | "se3" => Ok(ProductType::iPhoneSE3rdGen),
+            "iphone8,4" | "iphonese1stgen" | "ipse1" | "se1" => Ok(ProductType::iPhoneSE1stGen),
+            "iphone12,8" | "iphonese2ndgen" | "ipse2" | "se2" => Ok(ProductType::iPhoneSE2ndGen),
+            "iphone14,6" | "iphonese3rdgen" | "ipse3" | "se3" => Ok(ProductType::iPhoneSE3rdGen),
 
             _ => Err(()), // Error for unrecognized patterns
         }

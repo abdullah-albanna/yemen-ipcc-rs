@@ -1,3 +1,5 @@
+use rsmobiledevice::device_info::domains::DeviceDomains;
+use rsmobiledevice::device_info::keys::DeviceKeys;
 use std::sync::Mutex;
 use std::time::Duration;
 use std::{sync::Arc, thread};
@@ -7,6 +9,31 @@ use super::handlers::{
     battery::handle_device_battery, hardware::handle_device_hardware, os::handle_device_os,
     storage::handle_device_storage,
 };
+
+#[tauri::command]
+pub fn install_ipcc(window: tauri::Window, device_model: String, ios_ver: String) {
+    if let Ok(device_clients) = rsmobiledevice::device::DeviceClient::new() {
+        if let Some(device_client) = device_clients.get_first_device() {
+            let device_info = device_client.get_device_info();
+
+            let c_model = device_info
+                .get_value(DeviceKeys::ProductType, DeviceDomains::All)
+                .unwrap_or_default();
+            let c_ios_ver = device_info
+                .get_value(DeviceKeys::ProductVersion, DeviceDomains::All)
+                .unwrap_or_default();
+
+            if device_model != c_model || ios_ver != c_ios_ver {
+                window.emit("installing_error", true).unwrap_or_default();
+                return;
+            }
+
+            let _install_client = device_client.get_device_installer();
+
+            let _ipcc_file = "get the file from the api";
+        }
+    }
+}
 
 // Device monitoring function
 #[tauri::command]

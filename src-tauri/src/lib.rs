@@ -1,6 +1,5 @@
 mod device_management;
-
-use device_management::device::check_device;
+use device_management::device::{check_device, install_ipcc};
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
@@ -12,7 +11,7 @@ fn greet(name: &str) -> String {
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
-        .invoke_handler(tauri::generate_handler![greet, check_device])
+        .invoke_handler(tauri::generate_handler![greet, check_device, install_ipcc])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
