@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -7,8 +7,8 @@ import Select from "@mui/material/Select";
 
 import "./DropDown.css";
 
-export default function Bundles() {
-  const [bundle, setBundle] = React.useState("");
+const Bundles: React.FC = () => {
+  const [bundle, setBundle] = useState<string>("");
 
   const handleChange = (event) => {
     setBundle(event.target.value);
@@ -33,4 +33,6 @@ export default function Bundles() {
       </FormControl>
     </Box>
   );
-}
+};
+
+export default Bundles;

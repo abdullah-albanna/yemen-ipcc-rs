@@ -1,7 +1,8 @@
 import "./DevicePreview.css";
 
 import React from "react";
-export default function DevicePreview() {
+
+const DevicePreview: React.FC = () => {
   return (
     <div className="device-preview-container">
       <div className="device-title">
@@ -9,4 +10,6 @@ export default function DevicePreview() {
       </div>
     </div>
   );
-}
+};
+
+export default DevicePreview;

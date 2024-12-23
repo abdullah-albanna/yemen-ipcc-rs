@@ -4,7 +4,7 @@ import React from "react";
 
 import { Box } from "@mui/material";
 
-export default function Storage() {
+const Storage: React.FC = () => {
   let { storage } = useDeviceContext();
 
   return (
@@ -17,4 +17,6 @@ export default function Storage() {
       </Box>
     </div>
   );
-}
+};
+
+export default Storage;

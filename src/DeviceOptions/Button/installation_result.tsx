@@ -2,7 +2,12 @@ import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import { useDeviceContext } from "./../../DeviceInfo/DeviceProvider";
 
-const startInstalling = async (setButtonColor, setButtonText, setLoading) => {
+// it return whether it succeeded installaing or not
+const startInstalling = async (
+  setButtonColor: React.Dispatch<React.SetStateAction<string>>,
+  setButtonText: React.Dispatch<React.SetStateAction<string>>,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+): Promise<boolean> => {
   let { hardware, os } = useDeviceContext();
 
   try {
@@ -13,8 +18,8 @@ const startInstalling = async (setButtonColor, setButtonText, setLoading) => {
       iosVer: os.ios_ver,
     });
 
-    let isInstallationDone = false; // Track whether the process has completed
-    let successInstallation = false;
+    let isInstallationDone: boolean = false; // Track whether the process has completed
+    let successInstallation: boolean = false;
 
     const unlisten = await listen<boolean>(
       "carrier_bundle_install_status",
@@ -48,7 +53,7 @@ const startInstalling = async (setButtonColor, setButtonText, setLoading) => {
     setLoading(false);
     setButtonText("Error Installing");
     setButtonColor("red");
-    console.log(e);
+    console.error(e);
     return false;
   }
 };

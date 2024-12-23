@@ -4,7 +4,7 @@ import "./DeviceAll.css";
 import React from "react";
 import { Box } from "@mui/material";
 
-export default function Battery() {
+const Battery: React.FC = () => {
   let { battery } = useDeviceContext();
 
   return (
@@ -17,4 +17,6 @@ export default function Battery() {
       </Box>
     </div>
   );
-}
+};
+
+export default Battery;

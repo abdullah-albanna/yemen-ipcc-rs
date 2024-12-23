@@ -6,7 +6,8 @@ import theme from "./Options/Theme";
 
 import React from "react";
 import StartButton from "./Button/StartButton";
-export default function DeviceOptions() {
+
+const DeviceOptions: React.FC = () => {
   return (
     <div className="device-options-container">
       <div className="device-title">
@@ -21,4 +22,6 @@ export default function DeviceOptions() {
       </div>
     </div>
   );
-}
+};
+
+export default DeviceOptions;

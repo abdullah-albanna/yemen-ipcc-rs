@@ -4,7 +4,7 @@ import React from "react";
 
 import { Box } from "@mui/material";
 
-export default function OS() {
+const OS: React.FC = () => {
   let { os } = useDeviceContext();
 
   return (
@@ -16,4 +16,6 @@ export default function OS() {
       </Box>
     </div>
   );
-}
+};
+
+export default OS;

@@ -1,14 +1,18 @@
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 
-const startChecking = async (setButtonColor, setButtonText, setLoading) => {
+const startChecking = async (
+  setButtonColor: React.Dispatch<React.SetStateAction<string>>,
+  setButtonText: React.Dispatch<React.SetStateAction<string>>,
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+): Promise<void> => {
   try {
     setButtonText("Checking...");
 
     // Start checking
     await invoke("check_installing_succeed");
 
-    let isInstallationDone = false; // Track whether the process has completed
+    let isInstallationDone: boolean = false; // Track whether the process has completed
 
     // Set up the event listener for 'installation_succeed_status'
     const unlisten = await listen<boolean>(
@@ -46,6 +50,7 @@ const startChecking = async (setButtonColor, setButtonText, setLoading) => {
     setLoading(false);
     setButtonText("Error");
     setButtonColor("red");
+    console.error(e);
   }
 };
 

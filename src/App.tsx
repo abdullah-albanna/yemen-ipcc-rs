@@ -12,7 +12,7 @@ import "./App.css";
 import { DeviceProvider } from "./DeviceInfo/DeviceProvider";
 import DisconnectedScreen from "./DisconnectedScreen/DisconnectedScreen";
 
-export default function App() {
+const App: React.FC = () => {
   return (
     <DeviceProvider>
       <DisconnectedScreen>
@@ -24,7 +24,9 @@ export default function App() {
       </DisconnectedScreen>
     </DeviceProvider>
   );
-}
+};
+
+export default App;
 
 //function App() {
 //  const [greetMsg, setGreetMsg] = useState("");

@@ -3,7 +3,7 @@ import "./DeviceAll.css";
 import React from "react";
 import { Box } from "@mui/material";
 
-export default function Info() {
+const Info: React.FC = () => {
   let { hardware } = useDeviceContext();
 
   return (
@@ -16,4 +16,6 @@ export default function Info() {
       </Box>
     </div>
   );
-}
+};
+
+export default Info;

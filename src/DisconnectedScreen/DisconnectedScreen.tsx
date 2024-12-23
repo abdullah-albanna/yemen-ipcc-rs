@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./DisconnectedScreen.css";
 import { useDeviceContext } from "../DeviceInfo/DeviceProvider";
 
-const DisconnectedScreen = ({ children }) => {
+const DisconnectedScreen: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   let { connected } = useDeviceContext();
 
   const handleRetry = () => {

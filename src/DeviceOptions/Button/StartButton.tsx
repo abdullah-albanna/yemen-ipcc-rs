@@ -1,60 +1,27 @@
 import React, { useState } from "react";
 import { Button } from "@mui/material";
-import { invoke } from "@tauri-apps/api/core";
-import { listen } from "@tauri-apps/api/event";
 import startChecking from "./installation_check";
 import startInstalling from "./installation_result";
 
 const StartButton: React.FC = () => {
-  const [loading, setLoading] = useState(false); // To manage loading state
+  const [loading, setLoading] = useState<boolean>(false); // To manage loading state
   const [buttonText, setButtonText] = useState<string>("Start");
   const [buttonColor, setButtonColor] = useState<string>("black");
 
-  const resetButtonTextDelayed = () => {
+  const resetButtonTextDelayed = (): void => {
     // Reset button text after a short delay
-    setTimeout(() => {
+    setTimeout((): void => {
       setButtonColor("black");
       setButtonText("Start");
       setLoading(false);
     }, 3000);
   };
 
-  //  const installCarrierBundle = async () => {
-  //    setButtonText("Installing..");
-  //
-  //    await invoke<boolean>("install_ipcc", {
-  //      deviceModel: hardware.model,
-  //      iosVer: os.ios_ver,
-  //    });
-  //
-  //    const startListening = async () => {
-  //      let isInstallationCheckDone = false; // Track whether the process has completed
-  //
-  //      // Set up the event listener for 'installation_succeed_status'
-  //      const unlisten = await listen<boolean>(
-  //        "installation_succeed_status",
-  //        (event) => {
-  //          const { payload } = event;
-  //          if (payload) {
-  //            setButtonText("Success!");
-  //            setButtonColor("green");
-  //          } else {
-  //            setButtonText("Failed");
-  //            setButtonColor("red");
-  //          }
-  //          setLoading(false);
-  //          isInstallationCheckDone = true; // Mark as done
-  //        },
-  //      );
-  //    };
-  //
-  //    return result;
-  //  };
-
-  const handleButtonClick = async () => {
+  const handleButtonClick = async (): Promise<void> => {
     setLoading(true);
     setButtonColor("white");
 
+    // if the installation fails, reset the button text and stop the process
     if (!(await startInstalling(setButtonColor, setButtonText, setLoading))) {
       resetButtonTextDelayed();
       return;

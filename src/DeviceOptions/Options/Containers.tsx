@@ -1,12 +1,12 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-export default function Containers() {
-  const [container, setContainer] = React.useState("");
+const Containers: React.FC = () => {
+  const [container, setContainer] = useState<string>("");
 
   const handleChange = (event) => {
     setContainer(event.target.value);
@@ -30,4 +30,6 @@ export default function Containers() {
       </FormControl>
     </Box>
   );
-}
+};
+
+export default Containers;

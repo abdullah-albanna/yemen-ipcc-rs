@@ -1,6 +1,7 @@
+import { Theme } from "@emotion/react";
 import { createTheme } from "@mui/material";
 
-const theme = createTheme({
+const theme: Theme = createTheme({
   components: {
     MuiSelect: {
       styleOverrides: {
