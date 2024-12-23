@@ -66,7 +66,7 @@ const theme = createTheme({
             color: "black", // Text color when selected
           },
           "&.Mui-selected:hover": {
-            backgroundColor: "#8AB9DB", // Background when selected and hovered
+            backgroundColor: "#8AC0AB", // Background when selected and hovered
           },
         },
       },

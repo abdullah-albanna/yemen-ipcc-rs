@@ -53,7 +53,7 @@ pub enum ProductType {
 
 impl ProductType {
     pub fn is_unknown(&self) -> bool {
-        matches!(self, ProductType::Unknown)
+        *self == ProductType::Unknown
     }
 }
 

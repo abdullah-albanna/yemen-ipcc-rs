@@ -5,6 +5,7 @@ import Containers from "./Options/Containers";
 import theme from "./Options/Theme";
 
 import React from "react";
+import StartButton from "./Button/StartButton";
 export default function DeviceOptions() {
   return (
     <div className="device-options-container">
@@ -15,6 +16,9 @@ export default function DeviceOptions() {
         <Containers />
         <Bundles />
       </ThemeProvider>
+      <div className="device-options-button-elements-container">
+        <StartButton />
+      </div>
     </div>
   );
 }

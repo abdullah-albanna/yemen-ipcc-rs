@@ -67,7 +67,7 @@ const DeviceContext = createContext<DeviceContextType>({
   battery: defaultBattery,
   os: defaultOS,
   storage: defaultStorage,
-  connected: false,
+  connected: true,
 });
 
 export const useDeviceContext = () => useContext(DeviceContext);
@@ -79,7 +79,7 @@ export const DeviceProvider: React.FC<{ children: React.ReactNode }> = ({
   const [battery, setBattery] = useState<Battery>(defaultBattery);
   const [os, setOS] = useState<OS>(defaultOS);
   const [storage, setStorage] = useState<Storage>(defaultStorage);
-  const [connected, setConnected] = useState(false);
+  const [connected, setConnected] = useState(true);
 
   // Memoizing the event listeners with useCallback
   const handleHardwareUpdate = useCallback((event: { payload: Hardware }) => {
