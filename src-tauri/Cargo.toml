@@ -1,9 +1,13 @@
 [package]
 name = "yemen-ipcc"
 version = "0.1.0"
-description = "A Tauri App"
+description = "A remake of the original YemenIPCC in Rust"
 authors = ["Abdullah-Albanna"]
 edition = "2021"
+homepage = "https://github.com/Abdullah-Albanna/yemenipcc-rs"
+repository = "https://github.com/Abdullah-Albanna/yemenipcc-rs"
+keywords = ["ios", "ipcc", "carrier bundle", "cellular", "sim"]
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
