@@ -3,9 +3,11 @@ use rsmobiledevice::device_info::domains::DeviceDomains;
 use rsmobiledevice::device_info::keys::DeviceKeys;
 use rsmobiledevice::device_syslog::filters::FilterPart;
 use rsmobiledevice::device_syslog::LogFilter;
+use rsmobiledevice::RecursiveFind;
 use std::sync::Mutex;
 use std::time::Duration;
 use std::{sync::Arc, thread};
+use tauri::http::status;
 use tauri::Emitter;
 
 use super::handlers::{
@@ -32,16 +34,26 @@ pub fn install_ipcc(window: tauri::Window, device_model: String, ios_ver: String
                     return;
                 }
 
+                let window_clone = window.clone();
+
                 let install_client = device_client.get_device_installer();
-                let install_result = install_client.install_from_path(
+
+                // this will get replaced with an api call
+                let install_result = install_client.install_from_path_with_callback(
                     "/home/Abdullah/iPhone7Plus_iOS_15.8.2_CellularSouthLTE.ipcc",
                     None,
+                    move |_, status| {
+                        if status.rfind("Status").is_some_and(|s| &s == "Completed") {
+                            window_clone
+                                .emit("carrier_bundle_install_status", true)
+                                .unwrap();
+                        }
+                    },
                 );
 
-                match install_result {
-                    Ok(_) => window.emit("carrier_bundle_install_status", true).unwrap(),
-                    Err(_) => window.emit("carrier_bundle_install_status", false).unwrap(),
-                };
+                if install_result.is_err() {
+                    window.emit("carrier_bundle_install_status", false).unwrap()
+                }
             });
         }
     }

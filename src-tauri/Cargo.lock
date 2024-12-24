@@ -3128,8 +3128,8 @@ dependencies = [
 
 [[package]]
 name = "rusty_libimobiledevice"
-version = "0.2.2"
-source = "git+https://github.com/Abdullah-Albanna/modified_rusty_libimobiledevice#5938c29b91a4f8db42b91007cb5348ef48f12fd9"
+version = "0.2.3"
+source = "git+https://github.com/Abdullah-Albanna/modified_rusty_libimobiledevice?rev=406f210#406f210b71d3aef959cf43a55993754299b6ce47"
 dependencies = [
  "autotools",
  "bindgen",
