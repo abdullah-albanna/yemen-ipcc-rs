@@ -1,13 +1,12 @@
 use regex::Regex;
-use rsmobiledevice::device_info::domains::DeviceDomains;
-use rsmobiledevice::device_info::keys::DeviceKeys;
-use rsmobiledevice::device_syslog::filters::FilterPart;
-use rsmobiledevice::device_syslog::LogFilter;
-use rsmobiledevice::RecursiveFind;
+use rsmobiledevice::{
+    device_info::{domains::DeviceDomains, keys::DeviceKeys},
+    device_syslog::{filters::FilterPart, LogFilter},
+    RecursiveFind,
+};
 use std::sync::Mutex;
 use std::time::Duration;
 use std::{sync::Arc, thread};
-use tauri::http::status;
 use tauri::Emitter;
 
 use super::handlers::{
@@ -22,14 +21,14 @@ pub fn install_ipcc(window: tauri::Window, device_model: String, ios_ver: String
             std::thread::spawn(move || {
                 let device_info = device_client.get_device_info();
 
-                let c_model = device_info
+                let connected_model = device_info
                     .get_value(DeviceKeys::ProductType, DeviceDomains::All)
                     .unwrap_or_default();
-                let c_ios_ver = device_info
+                let connected_ios_ver = device_info
                     .get_value(DeviceKeys::ProductVersion, DeviceDomains::All)
                     .unwrap_or_default();
 
-                if device_model != c_model || ios_ver != c_ios_ver {
+                if device_model != connected_model || ios_ver != connected_ios_ver {
                     window.emit("carrier_bundle_install_status", false).unwrap();
                     return;
                 }
@@ -39,21 +38,21 @@ pub fn install_ipcc(window: tauri::Window, device_model: String, ios_ver: String
                 let install_client = device_client.get_device_installer();
 
                 // this will get replaced with an api call
-                let install_result = install_client.install_from_path_with_callback(
-                    "/home/Abdullah/iPhone7Plus_iOS_15.8.2_CellularSouthLTE.ipcc",
-                    None,
-                    move |_, status| {
-                        if status.rfind("Status").is_some_and(|s| &s == "Completed") {
-                            window_clone
-                                .emit("carrier_bundle_install_status", true)
-                                .unwrap();
-                        }
-                    },
-                );
-
-                if install_result.is_err() {
-                    window.emit("carrier_bundle_install_status", false).unwrap()
-                }
+                install_client
+                    .install_from_path_with_callback(
+                        "/home/Abdullah/iPhone7Plus_iOS_15.8.2_CellularSouthLTE.ipcc",
+                        None,
+                        move |_, status| {
+                            if status.rfind("Status").is_some_and(|s| &s == "Completed") {
+                                window_clone
+                                    .emit("carrier_bundle_install_status", true)
+                                    .unwrap();
+                            }
+                        },
+                    )
+                    .unwrap_or_else(|_| {
+                        window.emit("carrier_bundle_install_status", true).unwrap()
+                    });
             });
         }
     }
@@ -83,19 +82,21 @@ pub fn check_installing_succeed(window: tauri::Window) {
             //
             // if not and it exceeded the timeout, the second callback would get called, thus
             // triggering the false payload
-            let _ = syslog_client.log_to_custom_with_timeout_or_else(
-                move |_| {
-                    window_clone_1
-                        .emit("installation_succeed_status", true)
-                        .unwrap()
-                },
-                std::time::Duration::from_secs(40),
-                move || {
-                    window_clone_2
-                        .emit("installation_succeed_status", false)
-                        .unwrap()
-                },
-            );
+            syslog_client
+                .log_to_custom_with_timeout_or_else(
+                    move |_| {
+                        window_clone_1
+                            .emit("installation_succeed_status", true)
+                            .unwrap()
+                    },
+                    std::time::Duration::from_secs(40),
+                    move || {
+                        window_clone_2
+                            .emit("installation_succeed_status", false)
+                            .unwrap()
+                    },
+                )
+                .unwrap();
         }
     }
 }
